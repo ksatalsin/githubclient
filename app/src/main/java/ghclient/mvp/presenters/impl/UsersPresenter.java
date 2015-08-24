@@ -1,13 +1,18 @@
 package ghclient.mvp.presenters.impl;
+
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
+
 import com.colintmiller.simplenosql.NoSQL;
 import com.colintmiller.simplenosql.NoSQLEntity;
 import com.colintmiller.simplenosql.RetrievalCallback;
+
 import java.util.List;
+
 import javax.inject.Inject;
+
 import ghclient.model.RestRepository;
 import ghclient.model.User;
 import ghclient.model.UsersWrapper;
@@ -29,8 +34,8 @@ public class UsersPresenter implements BasePresenter, RecyclerClickListener, Rec
 
     private static final int OFFSET = 40;
     private static final String TAG = "GC";
-    private static  String USER_TABLE = "USER_TABLE";
-    private static  String USERS_ENTITY = "USERS_ENTITY";
+    private static String USER_TABLE = "USER_TABLE";
+    private static String USERS_ENTITY = "USERS_ENTITY";
     private final Context mContext;
     private RestRepository mRepository;
     private List<User> mUsersList;
@@ -42,7 +47,8 @@ public class UsersPresenter implements BasePresenter, RecyclerClickListener, Rec
     private Subscription mUserUsecaseSubscription;
     private UsersWrapper usersWrapper = new UsersWrapper();
 
-    @Inject public UsersPresenter(Context context, RestRepository repository) {
+    @Inject
+    public UsersPresenter(Context context, RestRepository repository) {
 
         mContext = context;
         mRepository = repository;
@@ -98,8 +104,8 @@ public class UsersPresenter implements BasePresenter, RecyclerClickListener, Rec
         mUsersUsecase = new GetUsersUsecase(mSinece, OFFSET, mRepository);
         mGetUsersSubscription = mUsersUsecase.execute()
                 .subscribe(
-                this::onUsersRecived,
-                this::onError);
+                        this::onUsersRecived,
+                        this::onError);
     }
 
     private void onUsersRecived(List<User> users) {
@@ -108,7 +114,7 @@ public class UsersPresenter implements BasePresenter, RecyclerClickListener, Rec
         mUserView.stopLoader();
         usersWrapper.setUsers(users);
 
-        NoSQLEntity<UsersWrapper> entity = new NoSQLEntity<UsersWrapper>(USER_TABLE,USERS_ENTITY);
+        NoSQLEntity<UsersWrapper> entity = new NoSQLEntity<UsersWrapper>(USER_TABLE, USERS_ENTITY);
         entity.setData(usersWrapper);
 
         NoSQL.with(mContext).using(UsersWrapper.class).save(entity);
@@ -145,7 +151,7 @@ public class UsersPresenter implements BasePresenter, RecyclerClickListener, Rec
     @Override
     public void onItemClick(User user) {
 
-        Intent i = new Intent (mContext, UserProfileActivity.class);
+        Intent i = new Intent(mContext, UserProfileActivity.class);
         i.putExtra(UsersActivity.EXTRA_USER, user);
         mContext.startActivity(i);
     }
@@ -165,11 +171,11 @@ public class UsersPresenter implements BasePresenter, RecyclerClickListener, Rec
 
     @Override
     public void onDestroy() {
-        if(mGetUsersSubscription!=null && !mGetUsersSubscription.isUnsubscribed()){
+        if (mGetUsersSubscription != null && !mGetUsersSubscription.isUnsubscribed()) {
             mGetUsersSubscription.unsubscribe();
         }
 
-        if(mUserUsecaseSubscription!=null && !mUserUsecaseSubscription.isUnsubscribed()){
+        if (mUserUsecaseSubscription != null && !mUserUsecaseSubscription.isUnsubscribed()) {
             mUserUsecaseSubscription.unsubscribe();
         }
     }

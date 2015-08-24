@@ -1,7 +1,6 @@
 package ghclient.di.modules;
 
 import android.content.Context;
-
 import dagger.Module;
 import dagger.Provides;
 
@@ -15,7 +14,7 @@ public class ActivityModule {
         this.mContext = context;
     }
 
-    @Provides @PerActivity
+   @Provides @PerActivity
     Context provideContext() {
         return mContext;
     }

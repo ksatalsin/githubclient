@@ -2,10 +2,9 @@ package ghclient.di.components;
 
 
 import android.content.Context;
-
 import dagger.Component;
-import ghclient.di.modules.PerActivity;
 import ghclient.di.modules.ActivityModule;
+import ghclient.di.modules.PerActivity;
 import ghclient.ui.activities.UserProfileActivity;
 import ghclient.ui.activities.UsersActivity;
 

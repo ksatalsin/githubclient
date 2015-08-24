@@ -1,7 +1,6 @@
 package ghclient.di.components;
 
 import javax.inject.Singleton;
-
 import dagger.Component;
 import ghclient.BaseApplication;
 import ghclient.di.modules.AppModule;

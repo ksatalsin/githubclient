@@ -9,16 +9,12 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.inject.Inject;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import ghclient.BaseApplication;
-
 import ghclient.R;
 import ghclient.di.components.DaggerActivityComponent;
 import ghclient.di.modules.ActivityModule;
@@ -34,10 +30,13 @@ public class UsersActivity extends AppCompatActivity
 
     @Bind(R.id.progress)
     ProgressBar mProgress;
+
     @Bind(R.id.rv_users)
     RecyclerView mUsersRecycler;
+
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
+
     @Bind(R.id.swipe_to_refresh)
     SwipeRefreshLayout mSwipeToRefresh;
 
@@ -61,11 +60,9 @@ public class UsersActivity extends AppCompatActivity
         ButterKnife.bind(this);
 
         initializeToolbar();
-
         initializeSwipeToRefreshView();
         initializeDependencyInjector();
         initializePresenter();
-
         initializeRecyclerView();
     }
 
@@ -78,7 +75,6 @@ public class UsersActivity extends AppCompatActivity
 
         setSupportActionBar(mToolbar);
     }
-
 
     @Override
     protected void onStart() {
@@ -156,6 +152,7 @@ public class UsersActivity extends AppCompatActivity
     public void startLoader() {
         loading = true;
         mProgress.setVisibility(View.INVISIBLE);
+        mSwipeToRefresh.setRefreshing(true);
     }
 
     @Override
@@ -163,7 +160,7 @@ public class UsersActivity extends AppCompatActivity
         loading = false;
         mProgress.setVisibility(View.GONE);
 
-        if(mSwipeToRefresh.isRefreshing()){
+        if (mSwipeToRefresh.isRefreshing()) {
             mSwipeToRefresh.setRefreshing(false);
         }
     }

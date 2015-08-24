@@ -4,7 +4,4 @@
         <item name="colorPrimaryDark">@color/brand_primary_dark</item>
         <item name="colorAccent">@color/brand_secondary</item>
     </style>
-    <style name="TranslucentStatusTheme" parent="AppTheme">
-    </style>
-
 </resources>

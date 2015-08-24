@@ -65,8 +65,10 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ItemViewHold
 
         @Bind(R.id.tv_title)
         TextView mTitle;
+
         @Bind(R.id.iv_avatar)
         ImageView mAvatar;
+
         @Bind(R.id.iv_url)
         ImageView mUrl;
 

@@ -1,7 +1,7 @@
 package ghclient.mvp.presenters.impl;
+
 import android.content.Context;
 import android.content.Intent;
-import android.widget.AdapterView;
 
 import javax.inject.Inject;
 
@@ -13,7 +13,7 @@ import ghclient.mvp.views.BaseView;
 import ghclient.ui.activities.UsersActivity;
 import ghclient.usecases.GetUserUsecase;
 import rx.Subscription;
-import ghclient.usecases.GetUsersUsecase;
+
 
 public class UserProfilePresenter implements BasePresenter {
 
@@ -51,6 +51,9 @@ public class UserProfilePresenter implements BasePresenter {
     @Override
     public void onDestroy() {
 
+        if (mUserUsecaseSubscription != null && !mUserUsecaseSubscription.isUnsubscribed()) {
+            mUserUsecaseSubscription.unsubscribe();
+        }
     }
 
     @Override

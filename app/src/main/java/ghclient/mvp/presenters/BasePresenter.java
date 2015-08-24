@@ -4,13 +4,13 @@ import android.content.Intent;
 
 import ghclient.mvp.views.BaseView;
 
-public interface BasePresenter <V extends BaseView>{
+public interface BasePresenter<V extends BaseView> {
 
     void init();
 
-    void onStart ();
+    void onStart();
 
-    void onStop ();
+    void onStop();
 
     void onDestroy();
 

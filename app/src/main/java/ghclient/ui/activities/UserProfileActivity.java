@@ -1,19 +1,13 @@
 package ghclient.ui.activities;
 
 import android.os.Bundle;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
-
 import javax.inject.Inject;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import ghclient.BaseApplication;
@@ -25,10 +19,8 @@ import ghclient.mvp.views.UserProfileView;
 
 public class UserProfileActivity extends AppCompatActivity implements UserProfileView {
 
-
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
-
 
     @Bind(R.id.iv_avatar)
     ImageView mAvatar;
@@ -38,7 +30,6 @@ public class UserProfileActivity extends AppCompatActivity implements UserProfil
 
     @Inject
     UserProfilePresenter mUserPresenter;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -73,7 +64,6 @@ public class UserProfileActivity extends AppCompatActivity implements UserProfil
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowTitleEnabled(false);
         }
-
     }
 
     private void initializePresenter() {
@@ -91,7 +81,6 @@ public class UserProfileActivity extends AppCompatActivity implements UserProfil
                 .build().inject(this);
     }
 
-
     @Override
     protected void onStop() {
 
@@ -104,7 +93,6 @@ public class UserProfileActivity extends AppCompatActivity implements UserProfil
         super.onDestroy();
         mUserPresenter.onDestroy();
     }
-
 
     @Override
     public void showAvatar(String url) {
@@ -121,6 +109,5 @@ public class UserProfileActivity extends AppCompatActivity implements UserProfil
     public void showName(String name) {
         mName.setText(name);
     }
-
 
 }
