@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="brand_primary">#a553d0</color>
+    <color name="brand_primary_dark">#a025d0</color>
+º    <color name="brand_secondary">#786bce</color>
+
+    <color name="white">#ffffff</color>
+    <color name="grey_light">#bababa</color>
+    <color name="grey_medium">#858585</color>
+    <color name="grey_dark">#232323</color>
+</resources>
