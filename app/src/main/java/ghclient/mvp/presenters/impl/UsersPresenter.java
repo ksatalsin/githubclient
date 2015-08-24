@@ -145,6 +145,8 @@ public class UsersPresenter implements BasePresenter, RecyclerClickListener, Rec
 
     private void onError(Throwable error) {
         Log.e(TAG, "erro: " + error.getLocalizedMessage());
+
+        mUserView.stopLoader();
     }
 
 
