@@ -23,6 +23,7 @@
         android:paddingTop="@dimen/spacing_normal"
         android:textColor="@color/grey_dark"
         android:textSize="32sp"
+        android:visibility="invisible"
 
         />
 
