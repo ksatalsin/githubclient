@@ -7,6 +7,10 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import javax.inject.Inject;
 
@@ -16,7 +20,6 @@ import ghclient.BaseApplication;
 import ghclient.R;
 import ghclient.di.components.DaggerActivityComponent;
 import ghclient.di.modules.ActivityModule;
-import ghclient.model.User;
 import ghclient.mvp.presenters.impl.UserProfilePresenter;
 import ghclient.mvp.views.UserProfileView;
 
@@ -25,8 +28,13 @@ public class UserProfileActivity extends AppCompatActivity implements UserProfil
 
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
-    @Bind(R.id.collapsing_toolbar_layout)
-    CollapsingToolbarLayout mCollapsingToolBarLayout;
+
+
+    @Bind(R.id.iv_avatar)
+    ImageView mAvatar;
+
+    @Bind(R.id.tv_name)
+    TextView mName;
 
     @Inject
     UserProfilePresenter mUserPresenter;
@@ -36,14 +44,17 @@ public class UserProfileActivity extends AppCompatActivity implements UserProfil
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        User user = (User) getIntent().getSerializableExtra(UsersActivity.EXTRA_USER);
-
         setContentView(R.layout.activity_user_profile);
         ButterKnife.bind(this);
 
         initializeToolbar();
         initializeDependencyInjector();
         initializePresenter();
+        initializeIntent();
+    }
+
+    private void initializeIntent() {
+        mUserPresenter.onIntentResult(getIntent());
     }
 
     @Override
@@ -68,7 +79,6 @@ public class UserProfileActivity extends AppCompatActivity implements UserProfil
     private void initializePresenter() {
 
         mUserPresenter.initializeView(this);
-        mUserPresenter.init();
     }
 
     private void initializeDependencyInjector() {
@@ -81,14 +91,6 @@ public class UserProfileActivity extends AppCompatActivity implements UserProfil
                 .build().inject(this);
     }
 
-    public void showError(String errorMessage) {
-
-        new AlertDialog.Builder(this)
-                .setPositiveButton(android.R.string.ok, (dialog, which) -> finish())
-                .setMessage(errorMessage)
-                .setCancelable(false)
-                .show();
-    }
 
     @Override
     protected void onStop() {
@@ -103,18 +105,22 @@ public class UserProfileActivity extends AppCompatActivity implements UserProfil
         mUserPresenter.onDestroy();
     }
 
-    @Override
-    public void showUserDetails(String text) {
-
-    }
 
     @Override
     public void showAvatar(String url) {
 
+        Glide.with(this)
+                .load(url)
+                .centerCrop()
+                .placeholder(R.drawable.images_holder)
+                .crossFade()
+                .into(mAvatar);
     }
 
     @Override
-    public void showLogin(String name) {
-
+    public void showName(String name) {
+        mName.setText(name);
     }
+
+
 }

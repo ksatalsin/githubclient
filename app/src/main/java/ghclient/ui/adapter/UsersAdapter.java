@@ -1,19 +1,14 @@
 package ghclient.ui.adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
-
 import java.util.List;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import ghclient.R;
@@ -62,21 +57,26 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ItemViewHold
        return arrUsers.get(location);
     }
 
+    public void removeItems() {
+        arrUsers.removeAll(arrUsers);
+    }
+
     public class ItemViewHolder extends RecyclerView.ViewHolder {
 
         @Bind(R.id.tv_title)
         TextView mTitle;
         @Bind(R.id.iv_avatar)
         ImageView mAvatar;
+        @Bind(R.id.iv_url)
+        ImageView mUrl;
 
         public ItemViewHolder(View itemView, final RecyclerClickListener recyclerClickListener) {
             super(itemView);
             ButterKnife.bind(this, itemView);
 
-          // bindListener(itemView, recyclerClickListener);
         }
 
-        public void bindItem(User user, RecyclerClickListener recyclerClickListener) {
+        public void bindItem(User user, RecyclerClickListener recyclerClickListener1) {
 
             if (user.getAvatarUrl() != null && !user.getAvatarUrl().isEmpty()) {
 
@@ -99,20 +99,19 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ItemViewHold
                 @Override
                 public void onClick(View v) {
 
-                    if (v instanceof TextView)
-                        recyclerClickListener.onItemClick(arrUsers.get(ItemViewHolder.this.getLayoutPosition()));
+                        recyclerClickListener1.onItemClick(user);
                 }
             });
 
-          /*  mTitle.setOnClickListener(new View.OnClickListener() {
+
+            mUrl.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String url = "http://www.example.com";
-                    Intent i = new Intent(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse(url));
-                    startActivity(i);
+
+                        recyclerClickListener1.onItemClickUrl(user);
                 }
-            });*/
+            });
+
         }
 
         private void bindListener(View itemView, final RecyclerClickListener recyclerClickListener) {

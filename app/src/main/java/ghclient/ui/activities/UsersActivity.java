@@ -162,11 +162,21 @@ public class UsersActivity extends AppCompatActivity
     public void stopLoader() {
         loading = false;
         mProgress.setVisibility(View.GONE);
+
+        if(mSwipeToRefresh.isRefreshing()){
+            mSwipeToRefresh.setRefreshing(false);
+        }
+    }
+
+    @Override
+    public void removeUsers() {
+        mUsersAdapter.removeItems();
+        mUsersAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onRefresh() {
-
+        mUsersPresenter.onRefresh();
     }
 
     @Override

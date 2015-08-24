@@ -15,7 +15,6 @@
         <activity
             android:name="ghclient.ui.activities.UserProfileActivity"
             android:parentActivityName="ghclient.ui.activities.UsersActivity"
-            android:theme="@style/TranslucentStatusTheme"
             />
         <activity
             android:name="ghclient.ui.activities.UsersActivity"

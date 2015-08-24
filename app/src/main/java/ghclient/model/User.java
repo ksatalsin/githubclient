@@ -9,7 +9,7 @@ public class User implements Serializable{
     private String avatar_url;
     private String gravatarId;
     private String url;
-    private String htmlUrl;
+    private String html_url;
     private String followersUrl;
     private String name;
     private String company;
@@ -92,11 +92,11 @@ public class User implements Serializable{
     }
 
     public String getHtmlUrl() {
-        return htmlUrl;
+        return html_url;
     }
 
     public void setHtmlUrl(String htmlUrl) {
-        this.htmlUrl = htmlUrl;
+        this.html_url = htmlUrl;
     }
 
     public String getFollowersUrl() {

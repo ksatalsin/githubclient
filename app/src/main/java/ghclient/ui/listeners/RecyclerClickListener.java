@@ -10,4 +10,6 @@ import ghclient.model.User;
 public interface RecyclerClickListener {
 
     void onItemClick(User user);
+
+    void onItemClickUrl(User user);
 }

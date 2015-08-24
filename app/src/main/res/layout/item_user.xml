@@ -15,36 +15,45 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:background="@drawable/gradient"
+
         />
 
 
     <LinearLayout android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:gravity="bottom"
+        android:background="@drawable/gradient"
         >
+
+        <ImageView
+            android:id="@+id/iv_url"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/images_holder"
+
+            />
 
     <TextView
         android:id="@+id/tv_title"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:paddingBottom="@dimen/spacing_tiny"
-        android:paddingLeft="@dimen/spacing_tiny"
+        android:paddingLeft="@dimen/spacing_normal"
         android:paddingRight="@dimen/spacing_tiny"
         android:paddingTop="@dimen/spacing_tiny"
         android:textColor="@color/white"
         android:textSize="27sp"
         tools:text="User"
+
+
         />
 
-    <ImageView
-        android:id="@+id/iv_url"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/images_holder" />
+
 
     </LinearLayout>
+
+
 
 
 </android.support.v7.widget.CardView>

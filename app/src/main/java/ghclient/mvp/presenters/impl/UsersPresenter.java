@@ -1,6 +1,7 @@
 package ghclient.mvp.presenters.impl;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import com.colintmiller.simplenosql.NoSQL;
 import com.colintmiller.simplenosql.NoSQLEntity;
@@ -51,7 +52,6 @@ public class UsersPresenter implements BasePresenter, RecyclerClickListener, Rec
     public void init() {
 
         showCatched();
-        //loadUsers();
     }
 
     private void showCatched() {
@@ -62,7 +62,12 @@ public class UsersPresenter implements BasePresenter, RecyclerClickListener, Rec
                 .entityId(USERS_ENTITY)
                 .retrieve((RetrievalCallback<UsersWrapper>) noSQLEntities -> {
 
-                    UsersWrapper usersWrapper1 = noSQLEntities.get(0).getData();
+                    UsersWrapper usersWrapper1 = null;
+                    try {
+                        usersWrapper1 = noSQLEntities.get(0).getData();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
 
                     if (usersWrapper1 != null && usersWrapper1.getUsers() != null) {
                         onUsersRecived(usersWrapper1.getUsers());
@@ -71,7 +76,6 @@ public class UsersPresenter implements BasePresenter, RecyclerClickListener, Rec
                     }
 
                 });
-
     }
 
     @Override
@@ -82,8 +86,11 @@ public class UsersPresenter implements BasePresenter, RecyclerClickListener, Rec
     public void initializeView(BaseView v) {
 
         mUserView = (UsersView) v;
+    }
 
-       // mUserView.showUsers(mUsersList);
+    @Override
+    public void onIntentResult(Intent intent) {
+
     }
 
     private void loadUsers() {
@@ -115,9 +122,9 @@ public class UsersPresenter implements BasePresenter, RecyclerClickListener, Rec
     }
 
     private void loadUser(User user) {
-        mUserUsecase = new GetUserUsecase(user.getLogin(),mRepository);
+        /* mUserUsecase = new GetUserUsecase(user.getLogin(),mRepository);
 
-       /* mUserUsecaseSubscription = mUserUsecase.execute().subscribe(
+       mUserUsecaseSubscription = mUserUsecase.execute().subscribe(
                 this::onUserResult,
                 this::onError);*/
 
@@ -144,6 +151,14 @@ public class UsersPresenter implements BasePresenter, RecyclerClickListener, Rec
     }
 
     @Override
+    public void onItemClickUrl(User user) {
+
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(user.getHtmlUrl()));
+        mContext.startActivity(i);
+    }
+
+    @Override
     public void onStop() {
 
     }
@@ -164,6 +179,18 @@ public class UsersPresenter implements BasePresenter, RecyclerClickListener, Rec
     public void onReachedEnd(User user) {
 
         mSinece = user.getId();
+        loadUsers();
+    }
+
+    public void onRefresh() {
+        mSinece = 3285995;
+        mUserView.removeUsers();
+
+        NoSQL.with(mContext)
+                .using(UsersWrapper.class)
+                .bucketId(USER_TABLE)
+                .entityId(USERS_ENTITY).delete();
+
         loadUsers();
     }
 }
